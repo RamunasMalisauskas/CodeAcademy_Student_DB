@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Student list</h1>
+    <h1 class="title">Student list</h1>
 
     <table class="table is-fullwidth">
       <thead>

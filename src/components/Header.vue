@@ -65,7 +65,7 @@ export default {
 }
 
 img {
-  width: 150px;
+  width: 100px;
 }
 
 .blue {

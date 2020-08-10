@@ -1,6 +1,6 @@
 <template>
-  <div class="about">
-    <h2 class="subtitle">Add Student</h2>
+  <div class="add">
+    <h2 class="title">Add Student</h2>
 
     <form @submit.prevent="add">
       <div class="field">
@@ -30,6 +30,7 @@
       </div>
 
       <div class="control">
+        <label class="label">Gender</label>
         <label class="radio">
           Male
           <input type="radio" v-model="gender" name="gender" value="male" />
@@ -86,7 +87,12 @@
       <button type="submit" class="button">Add Student</button>
     </form>
 
-    <Notification/>
+    <Notification
+      v-if="error"
+      v-on:close="error = false"
+      class="blue"
+      :message="errorMessage"
+    />
   </div>
 </template>
 
@@ -109,6 +115,9 @@ export default {
       birth: "",
       phone: "",
       email: "",
+      error: false,
+      errorMessage: "",
+      loading: false,
     };
   },
 
@@ -124,7 +133,20 @@ export default {
           birth: this.birth,
           phone: this.phone,
           email: this.email,
-        });
+        })
+        .then(
+          () => {
+            this.loading = false;
+            this.error = true;
+            this.errorMessage = `"you have added ${this.name} ${this.surname} to student database "`;
+          },
+
+          () => {
+            this.loading = false;
+            this.error = true;
+            this.errorMessage = "oops... something went wrong";
+          }
+        );
     },
     remove(id) {
       firebase
@@ -158,9 +180,13 @@ export default {
 </script>
 
 <style scoped>
+form {
+  margin-bottom: 60px;
+}
+
 h2 {
   color: rgb(80, 80, 80);
-  margin: 0 0 30px 0;
+  margin: 30px 0;
 }
 
 label {
@@ -173,11 +199,19 @@ input {
   border: 1px solid rgb(0, 183, 255);
   border-radius: 10px;
   box-sizing: border-box;
-  width: 33%;
+  width: 66%;
+}
+
+.control {
+  margin-bottom: 15px;
 }
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+input[type="radio"] {
+  margin-right: 20px;
 }
 
 button {
@@ -192,5 +226,10 @@ button:hover {
   cursor: pointer;
   color: rgb(0, 183, 255);
   background-color: rgb(255, 255, 255);
+}
+
+.blue {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 183, 255);
 }
 </style>
