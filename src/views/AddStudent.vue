@@ -84,15 +84,15 @@
         </div>
       </div>
 
+      <Notification
+        v-if="error"
+        v-on:close="error = false"
+        class="blue"
+        :message="errorMessage"
+      />
+
       <button type="submit" class="button">Add Student</button>
     </form>
-
-    <Notification
-      v-if="error"
-      v-on:close="error = false"
-      class="blue"
-      :message="errorMessage"
-    />
   </div>
 </template>
 
@@ -199,7 +199,7 @@ input {
   border: 1px solid rgb(0, 183, 255);
   border-radius: 10px;
   box-sizing: border-box;
-  width: 66%;
+  width: 50%;
 }
 
 .control {

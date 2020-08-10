@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1 class="title">Student list</h1>
+    <h2 class="title">Student list</h2>
 
     <table class="table is-fullwidth">
       <thead>
@@ -27,6 +27,9 @@
   </div>
 </template>
 
+// beforemount isideti is 035 firestore funkcija
+// susikurti tuscia objekta kuri push'inti info is firebase
+
 <script>
 export default {
   name: "Home",
@@ -34,4 +37,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+h2 {
+  color: rgb(80, 80, 80);
+  margin: 30px 0;
+}
+</style>
