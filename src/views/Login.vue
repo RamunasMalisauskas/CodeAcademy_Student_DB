@@ -27,8 +27,6 @@
         Login
       </button>
 
-      <!-- ar reikalnigas v-if? -->
-      <!--  -->
       <Notification
         v-if="error"
         v-on:close="error = false"

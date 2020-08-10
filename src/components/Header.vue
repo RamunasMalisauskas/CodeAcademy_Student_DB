@@ -58,7 +58,7 @@ export default {
 .wrapper {
   margin: 0 auto;
   background-color: rgb(255, 255, 255);
-  width: 768px;
+  width: 968px;
   display: flex;
   justify-content: space-between;
   align-items: center;

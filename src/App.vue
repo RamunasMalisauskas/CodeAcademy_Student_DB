@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header />
     <div class="wrapper">
+      <Header />
       <router-view />
     </div>
   </div>
@@ -18,7 +18,7 @@ export default {
 
 <style scoped>
 .wrapper {
-  width: 768px;
+  width: 968px;
   margin: 0 auto;
   min-height: 400px;
   background-color: rgb(255, 255, 255);
