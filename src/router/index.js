@@ -15,7 +15,7 @@ const routes = [
   {
     path: "/students",
     name: "Students",
-    component: () => import(/* webpackChunkName: "home" */ "../views/Students.vue"),
+    component: () => import(/* webpackChunkName: "students" */ "../views/Students.vue"),
     meta: {
       requiresAuth: true,
     },
@@ -23,7 +23,7 @@ const routes = [
   {
     path: "/add",
     name: "Add",
-    component: () => import( /* webpackChunkName: "cart" */ "../views/AddStudent.vue"),
+    component: () => import( /* webpackChunkName: "Add" */ "../views/AddStudent.vue"),
     meta: {
       requiresAuth: true,
     },
@@ -57,7 +57,7 @@ router.beforeEach((to, from, next) => {
     if (!user && to.matched.some((route) => route.meta.requiresAuth)) {
       next({ path: "/login" });
     } else if (user && to.matched.some((route) => route.meta.requiresAnon)) {
-      next({ path: "/home" });
+      next({ path: "/students" });
     } else {
       next();
     }

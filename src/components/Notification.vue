@@ -20,4 +20,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.notification {
+  margin: 30px 0;
+}
+</style>

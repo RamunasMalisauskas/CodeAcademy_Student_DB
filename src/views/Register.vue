@@ -28,6 +28,7 @@
       </button>
 
       <Notification
+        v-if="error"
         v-on:close="error = false"
         type="is-warning"
         :message="errorMessage"
@@ -60,12 +61,15 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
-        .then(() => this.$router.push("/")),
-        (error) => {
-          this.loading = false;
-          this.error = true;
-          this.errorMessage = error.message;
-        };
+        .then(
+          () => this.$router.push("/"),
+
+          (error) => {
+            this.loading = false;
+            this.error = true;
+            this.errorMessage = error.message;
+          }
+        );
     },
   },
 };
