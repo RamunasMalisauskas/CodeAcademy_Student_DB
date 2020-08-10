@@ -7,9 +7,9 @@
       />
       <nav>
         <span v-if="loggedIn">
-          <router-link to="/home">Home</router-link>
-          <router-link class="blue" to="/about">About </router-link>
-          <a v-on:click="signOut()">Sign Out</a>
+          <router-link to="/Students">Students</router-link>
+          <router-link to="/Add">Add Student </router-link>
+          <a class="blue" v-on:click="signOut()">Sign Out</a>
         </span>
 
         <span v-else>

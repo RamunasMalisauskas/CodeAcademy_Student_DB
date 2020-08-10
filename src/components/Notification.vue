@@ -1,7 +1,7 @@
 <template>
   <div class="notification" v-bind:class="type">
-    <button class="delete" @click="close"></button>
     {{ message }}
+    <button class="delete" @click="close"></button>
   </div>
 </template>
 
@@ -19,3 +19,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>

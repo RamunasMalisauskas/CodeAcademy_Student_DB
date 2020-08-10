@@ -27,6 +27,8 @@
         Login
       </button>
 
+      <!-- ar reikalnigas v-if? -->
+      <!--  -->
       <Notification
         v-if="error"
         v-on:close="error = false"
@@ -61,13 +63,16 @@ export default {
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
-        .then(() => this.$router.push("/")),
-        () => {
-          this.error = true;
-          this.errorMessage =
-            "failed to log-in, check you login email and password";
-          this.loading = false;
-        };
+        .then(
+          () => this.$router.push("/"),
+
+          () => {
+            this.loading = false;
+            this.error = true;
+            this.errorMessage =
+              "oops... something went wrong, check you email and password";
+          }
+        );
     },
   },
 };

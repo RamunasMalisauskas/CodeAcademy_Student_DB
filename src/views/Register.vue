@@ -28,7 +28,6 @@
       </button>
 
       <Notification
-        v-if="error"
         v-on:close="error = false"
         type="is-warning"
         :message="errorMessage"
