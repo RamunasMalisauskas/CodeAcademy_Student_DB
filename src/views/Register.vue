@@ -56,17 +56,16 @@ export default {
   },
 
   methods: {
-    login() {
+    register() {
       this.loading = true;
       firebase
         .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
+        .createUserWithEmailAndPassword(this.email, this.password)
         .then(() => this.$router.push("/")),
-        () => {
-          this.error = true;
-          this.errorMessage =
-            "failed to log-in, check you login email and password";
+        (error) => {
           this.loading = false;
+          this.error = true;
+          this.errorMessage = error.message;
         };
     },
   },
