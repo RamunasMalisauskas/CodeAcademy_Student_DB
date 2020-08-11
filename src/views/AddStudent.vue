@@ -128,54 +128,29 @@ export default {
         .collection("Students")
         .add({
           name: this.name,
-          time: this.surname,
+          surname: this.surname,
           gender: this.gender,
           birth: this.birth,
           phone: this.phone,
           email: this.email,
         })
-        .then(
-          () => {
-            this.loading = false;
-            this.error = true;
-            this.errorMessage = `"you have added ${this.name} ${this.surname} to student database "`;
-          },
+        .then(() => {
+          this.loading = false;
+          this.error = true;
+          this.errorMessage = `"you have added ${this.name} ${this.surname} to student database "`;
+        });
+    },
 
-          () => {
-            this.loading = false;
-            this.error = true;
-            this.errorMessage = "oops... something went wrong";
-          }
-        );
-    },
-    remove(id) {
-      firebase
-        .firestore()
-        .collection("Students")
-        .doc(id)
-        .delete();
-      this.workouts = this.workouts.filter((workout) => workout.id !== id);
-    },
+    // remove button funkcija  -> reikia įsidėti
+    // remove(id) {
+    //   firebase
+    //     .firestore()
+    //     .collection("Students")
+    //     .doc(id)
+    //     .delete();
+    //   this.workouts = this.workouts.filter((workout) => workout.id !== id);
+    // },
   },
-  // beforeMount() {
-  //   firebase
-  //     .firestore()
-  //     .collection("students")
-  //     .doc(firebase.auth().currentUser.uid)
-  //     .orderBy("date", "desc")
-  //     .get()
-  //     .then((snapshot) =>
-  //       snapshot.docs.forEach((doc) =>
-  //         this.workouts.push({
-  //           id: doc.id,
-  //           date: doc.data().date,
-  //           distance: doc.data().distance,
-  //           time: doc.data().time,
-  //           breath: doc.data().breath,
-  //         })
-  //       )
-  //     );
-  // },
 };
 </script>
 

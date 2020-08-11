@@ -2,7 +2,9 @@
   <div class="home">
     <h2 class="title">Student list</h2>
 
-    <table class="table is-fullwidth">
+    <Search v-on:search="(query) => (filter = query)" />
+
+    <table class="table is-fullwidth is-striped ">
       <thead>
         <tr>
           <th>Name</th>
@@ -14,26 +16,63 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Ramas</td>
-          <td>Mali</td>
-          <td>M</td>
-          <td>88/09/12</td>
-          <td>0037688670</td>
-          <td>mail@email.com</td>
+        <tr v-for="student in students" :key="student.id">
+          <td>{{ student.name }}</td>
+          <td>{{ student.surname }}</td>
+          <td>{{ student.gender }}</td>
+          <td>{{ student.birth }}</td>
+          <td>{{ student.phone }}</td>
+          <td>{{ student.email }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
 
-// beforemount isideti is 035 firestore funkcija
-// susikurti tuscia objekta kuri push'inti info is firebase
-
 <script>
+import Search from "../components/Search";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
+
 export default {
   name: "Home",
-  components: {},
+  components: { Search },
+  data() {
+    return {
+      allstudents: [],
+      students: [],
+    };
+  },
+
+  computed: {
+    StudentSearch() {
+      return this.allstudents.filter((student) =>
+        student.name.toLowerCase().includes(this.filter.toLowerCase())
+      );
+    },
+  },
+
+  beforeMount() {
+    firebase
+      .firestore()
+      .collection("Students")
+      // .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then((snapshot) =>
+        snapshot.docs.forEach((doc) =>
+          this.students.push({
+            id: doc.id,
+            name: doc.data().name,
+            surname: doc.data().surname,
+            gender: doc.data().gender,
+            birth: doc.data().birth,
+            phone: doc.data().phone,
+            email: doc.data().email,
+          })
+        )
+      );
+  },
 };
 </script>
 
