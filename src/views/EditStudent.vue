@@ -67,23 +67,29 @@
       </div>
 
       <button type="submit" class="button" :class="loading && 'is-loading'">
-        Edit</button
-      >\
+        Edit
+      </button>
 
-      <Notificaiton />
+      <Notification
+        class="blue"
+        v-if="error"
+        v-on:close="error = false"
+        type="is-primary"
+        :message="errorMessage"
+      />
     </form>
   </div>
 </template>
 
 <script>
-import Notificaiton from "../components/Notification";
+import Notification from "../components/Notification";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
 export default {
   name: "editStudent",
-  components: { Notificaiton },
+  components: { Notification },
   data() {
     return {
       id: "",
@@ -112,6 +118,11 @@ export default {
           birth: this.birth,
           phone: this.phone,
           email: this.email,
+        })
+        .then(() => {
+          this.loading = false;
+          this.error = true;
+          this.errorMessage = `you have updated ${this.name} information`;
         });
     },
   },
@@ -140,6 +151,11 @@ export default {
 h2 {
   color: rgb(80, 80, 80);
   margin: 30px 0;
+}
+
+.blue {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 183, 255);
 }
 
 table {

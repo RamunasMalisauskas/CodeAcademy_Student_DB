@@ -24,7 +24,9 @@
           <td>{{ student.birth }}</td>
           <td>{{ student.phone }}</td>
           <td>{{ student.email }}</td>
-          <td><router-link :to="/editStudent/ + student.id">Edit</router-link></td>
+          <td>
+            <router-link :to="/editStudent/ + student.id">Edit</router-link>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -79,6 +81,19 @@ export default {
 </script>
 
 <style scoped>
+a {
+  padding: 7.5px 20px;
+  border-radius: 10px;
+  border: 1px solid rgb(0, 183, 255);
+  color: rgb(0, 183, 255);
+  background-color: rgb(255, 255, 255);
+}
+
+a:hover {
+  background-color: rgb(0, 183, 255);
+  color: rgb(255, 255, 255);
+}
+
 h2 {
   color: rgb(80, 80, 80);
   margin: 30px 0;
