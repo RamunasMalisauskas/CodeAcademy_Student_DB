@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h2 class="title">Student list</h2>
+    <h2 class="title">CodeAcademy Groups</h2>
 
     <!-- <Search v-on:search="(query) => (filter = query)" /> -->
 
@@ -14,9 +14,13 @@
       </thead>
       <tbody>
         <tr v-for="group in groupList" :key="group.id">
-          <td>{{ group.groupname }}</td>
+          <td>{{ group.groupName }}</td>
           <td>{{ group.lecturer }}</td>
-          <td>{{ group.studentList }}</td>
+
+          <td v-for="student in studentList" :key="student.id">
+            {{ student.name }}
+            {{ student.surname }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -35,6 +39,7 @@ export default {
   data() {
     return {
       groupList: [],
+      studentList: [{ name: "Vardas", surname: "Pavarde" }],
     };
   },
 
@@ -42,18 +47,22 @@ export default {
     firebase
       .firestore()
       .collection("Groups")
-      // .doc(firebase.auth().currentUser.uid)
       .get()
       .then((snapshot) =>
         snapshot.docs.forEach((doc) =>
           this.groupList.push({
             id: doc.id,
-            groupname: doc.data().groupname,
+            groupName: doc.data().groupName,
             lecturer: doc.data().lecturer,
-            studentList: doc.data().studentList,
           })
         )
       );
+
+    // firebase
+    //   .firestore()
+    //   .collection("studentList")
+    //   .get()
+    //   .then((doc) => console.log(doc.data()));
   },
 };
 </script>

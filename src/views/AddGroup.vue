@@ -4,7 +4,7 @@
 
     <form @submit.prevent="addGroup">
       <div class="field">
-        <label class="label">Name</label>
+        <label class="label">Group Name</label>
         <div class="control">
           <input
             class="input"
@@ -29,7 +29,8 @@
         </div>
       </div>
 
-      <div class="field">
+      <!-- MINDAUGO METODAS -->
+      <!-- <div class="field">
         <label class="label">Student List</label>
         <ul class="list-group">
           <li
@@ -41,13 +42,13 @@
               <input
                 type="checkbox"
                 :value="`${student.name} ${student.surname}`"
-                v-model="studentListGroup"
+                v-model="studentList"
               />
               {{ `${student.name} ${student.surname}` }}
             </label>
           </li>
         </ul>
-      </div>
+      </div> -->
 
       <Notification
         v-if="error"
@@ -76,8 +77,8 @@ export default {
     return {
       groupname: "",
       lecturer: "",
-      studentList: "",
-      studentListGroup: "",
+      student: [],
+      //   studentList: [],
       error: false,
       errorMessage: "",
       loading: false,
@@ -88,17 +89,17 @@ export default {
     addGroup() {
       firebase
         .firestore()
-        .collection("Group")
+        .collection("Groups")
         .add({
           groupname: this.groupname,
           lecturer: this.lecturer,
-          gender: this.gender,
         })
         .then(() => {
           this.loading = false;
           this.error = true;
-          this.errorMessage = `"you have added ${this.student.name} ${this.student.surname} to this ${this.groupname} "`;
-        });
+          this.errorMessage = `"you have added student to this ${this.groupname} "`;
+        }),
+        () => console.log(this.student);
     },
 
     // remove button funkcija  -> reikia įsidėti
@@ -120,7 +121,7 @@ export default {
       .get()
       .then((snapshot) =>
         snapshot.docs.forEach((doc) =>
-          this.studentList.push({
+          this.student.push({
             id: doc.id,
             name: doc.data().name,
             surname: doc.data().surname,
