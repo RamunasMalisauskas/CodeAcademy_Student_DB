@@ -10,7 +10,7 @@
           <th>Name</th>
           <th>Surname</th>
           <th>Gender</th>
-          <th>D.O.B</th>
+          <th>D.O.B.</th>
           <th>Phone</th>
           <th>E-mail</th>
         </tr>

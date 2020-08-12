@@ -31,7 +31,7 @@ const routes = [
   {
     path: "/editStudent/:id",
     name: "Edit Student",
-    component: () => import( /* webpackChunkName: "Edit Student" */ "../viewsEditStudent.vue"),
+    component: () => import( /* webpackChunkName: "Edit Student" */ "../views/EditStudent.vue"),
     meta: {
       requiresAuth: true,
     },
