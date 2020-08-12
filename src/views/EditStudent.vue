@@ -1,8 +1,8 @@
 <template>
-  <div class="students">
-    <h2 class="title">Student list</h2>
+  <div class="editSudent">
+    <h2 class="title">Edit Student information</h2>
 
-    <Search v-on:search="(query) => (filter = query)" />
+    <!-- <Search v-on:search="(query) => (filter = query)" /> -->
 
     <table class="table is-fullwidth is-striped ">
       <thead>
@@ -30,14 +30,14 @@
 </template>
 
 <script>
-import Search from "../components/Search";
+// import Search from "../components/Search";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
 export default {
-  name: "Home",
-  components: { Search },
+  name: "EditStudents",
+//   components: { Search },
   data() {
     return {
       allstudents: [],
@@ -45,33 +45,21 @@ export default {
     };
   },
 
-  computed: {
-    StudentSearch() {
-      return this.allstudents.filter((student) =>
-        student.name.toLowerCase().includes(this.filter.toLowerCase())
-      );
-    },
-  },
+//   computed: {
+//     StudentSearch() {
+//       return this.allstudents.filter((student) =>
+//         student.name.toLowerCase().includes(this.filter.toLowerCase())
+//       );
+//     },
+//   },
 
-  beforeMount() {
+ beforeMount() {
     firebase
       .firestore()
       .collection("Students")
-      // .doc(firebase.auth().currentUser.uid)
+      .doc(this.$route.params.id)
       .get()
-      .then((snapshot) =>
-        snapshot.docs.forEach((doc) =>
-          this.students.push({
-            id: doc.id,
-            name: doc.data().name,
-            surname: doc.data().surname,
-            gender: doc.data().gender,
-            birth: doc.data().birth,
-            phone: doc.data().phone,
-            email: doc.data().email,
-          })
-        )
-      );
+      .then((doc) => console.log(doc.data()));
   },
 };
 </script>

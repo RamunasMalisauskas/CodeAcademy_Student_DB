@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="groups">
     <h2 class="title">CodeAcademy Groups</h2>
 
     <!-- <Search v-on:search="(query) => (filter = query)" /> -->
@@ -17,10 +17,14 @@
           <td>{{ group.groupName }}</td>
           <td>{{ group.lecturer }}</td>
 
-          <td v-for="student in studentList" :key="student.id">
-            {{ student.name }}
-            {{ student.surname }}
-          </td>
+          <div class="select">
+            <select>
+              <option>Students in a class </option>
+              <option v-for="student in studentList" :key="student.id">
+                {{ student.name }}
+              </option>
+            </select>
+          </div>
         </tr>
       </tbody>
     </table>
@@ -39,7 +43,7 @@ export default {
   data() {
     return {
       groupList: [],
-      studentList: [],
+      studentList: [{ name: "vardas pavarde" }],
     };
   },
 
@@ -85,4 +89,16 @@ h2 {
 table {
   margin-bottom: 180px;
 }
+
+select {
+  border: 1px solid rgb(0, 183, 255);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+select:hover {
+  color: rgb(0, 183, 255);
+  background-color: rgb(255, 255, 255);
+}
+
 </style>

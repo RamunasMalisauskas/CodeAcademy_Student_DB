@@ -1,5 +1,5 @@
 <template>
-  <div class="add">
+  <div class="addStudent">
     <h2 class="title">Add Student</h2>
 
     <form @submit.prevent="add">
