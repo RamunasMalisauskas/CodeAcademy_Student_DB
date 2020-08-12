@@ -81,4 +81,8 @@ h2 {
   color: rgb(80, 80, 80);
   margin: 30px 0;
 }
+
+table {
+ margin-bottom: 180px;
+}
 </style>

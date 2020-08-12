@@ -29,6 +29,22 @@ const routes = [
     },
   },
   {
+    path: "/addGroup",
+    name: "Add Group",
+    component: () => import( /* webpackChunkName: "Add Group" */ "../views/AddGroup.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/Groups",
+    name: "Groups",
+    component: () => import( /* webpackChunkName: "Add" */ "../views/Groups.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/login",
     name: "Login",
     component: () => import(/* webpackChunkName: "login" */ "../views/Login.vue"),

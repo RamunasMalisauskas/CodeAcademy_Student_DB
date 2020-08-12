@@ -1,87 +1,52 @@
 <template>
   <div class="add">
-    <h2 class="title">Add Student</h2>
+    <h2 class="title">Add Group</h2>
 
-    <form @submit.prevent="add">
+    <form @submit.prevent="addGroup">
       <div class="field">
         <label class="label">Name</label>
         <div class="control">
           <input
             class="input"
             type="text"
-            name="name"
-            v-model="name"
-            placeholder="your name"
+            name="groupname"
+            v-model="groupname"
+            placeholder="group name"
           />
         </div>
       </div>
 
       <div class="field">
-        <label class="label">Surname</label>
+        <label class="label">Lecturer</label>
         <div class="control">
           <input
             class="input"
             type="text"
-            name="surname"
-            v-model="surname"
-            placeholder="your surname"
-          />
-        </div>
-      </div>
-
-      <div class="control">
-        <label class="label">Gender</label>
-        <label class="radio">
-          Male
-          <input type="radio" v-model="gender" name="gender" value="male" />
-        </label>
-        <label class="radio">
-          Female
-          <input type="radio" v-model="gender" name="gender" value="female" />
-        </label>
-        <label class="radio">
-          Other
-          <input type="radio" v-model="gender" name="gender" value="other" />
-        </label>
-      </div>
-
-      <div class="field">
-        <label class="label">D.O.B.</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            name="birth"
-            v-model="birth"
-            placeholder="1980/01/01"
+            name="lecturer"
+            v-model="lecturer"
+            placeholder="lecturer name"
           />
         </div>
       </div>
 
       <div class="field">
-        <label class="label">Phone</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            name="phone"
-            v-model="phone"
-            placeholder="003701234567"
-          />
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">E-Mail</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            name="email"
-            v-model="email"
-            placeholder="mail@email.com"
-          />
-        </div>
+        <label class="label">Student List</label>
+        <ul class="list-group">
+          <li
+            class="list-group-item"
+            v-for="student in studentList"
+            :key="student.id"
+          >
+            <label>
+              <input
+                type="checkbox"
+                :value="`${student.name} ${student.surname}`"
+                v-model="studentListGroup"
+              />
+              {{ `${student.name} ${student.surname}` }}
+            </label>
+          </li>
+        </ul>
       </div>
 
       <Notification
@@ -91,7 +56,7 @@
         :message="errorMessage"
       />
 
-      <button type="submit" class="button">Add Student</button>
+      <button type="submit" class="button">Add Group</button>
     </form>
   </div>
 </template>
@@ -103,18 +68,16 @@ import "firebase/firestore";
 import "firebase/auth";
 
 export default {
-  name: "addStudent",
+  name: "addGroup",
 
   components: { Notification },
 
   data() {
     return {
-      name: "",
-      surname: "",
-      gender: "",
-      birth: "",
-      phone: "",
-      email: "",
+      groupname: "",
+      lecturer: "",
+      studentList: "",
+      studentListGroup: "",
       error: false,
       errorMessage: "",
       loading: false,
@@ -122,22 +85,19 @@ export default {
   },
 
   methods: {
-    add() {
+    addGroup() {
       firebase
         .firestore()
-        .collection("Students")
+        .collection("Group")
         .add({
-          name: this.name,
-          surname: this.surname,
+          groupname: this.groupname,
+          lecturer: this.lecturer,
           gender: this.gender,
-          birth: this.birth,
-          phone: this.phone,
-          email: this.email,
         })
         .then(() => {
           this.loading = false;
           this.error = true;
-          this.errorMessage = `"you have added ${this.name} ${this.surname} to student database "`;
+          this.errorMessage = `"you have added ${this.student.name} ${this.student.surname} to this ${this.groupname} "`;
         });
     },
 
