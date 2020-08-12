@@ -9,8 +9,8 @@
           <input
             class="input"
             type="text"
-            name="groupname"
-            v-model="groupname"
+            name="groupName"
+            v-model="groupName"
             placeholder="group name"
           />
         </div>
@@ -29,9 +29,8 @@
         </div>
       </div>
 
-      <!-- MINDAUGO METODAS -->
-      <!-- <div class="field">
-        <label class="label">Student List</label>
+      <div class="field">
+        <label class="label">Students</label>
         <ul class="list-group">
           <li
             class="list-group-item"
@@ -42,13 +41,13 @@
               <input
                 type="checkbox"
                 :value="`${student.name} ${student.surname}`"
-                v-model="studentList"
+                v-model="studentSelected"
               />
               {{ `${student.name} ${student.surname}` }}
             </label>
           </li>
         </ul>
-      </div> -->
+      </div>
 
       <Notification
         v-if="error"
@@ -75,10 +74,10 @@ export default {
 
   data() {
     return {
-      groupname: "",
+      groupName: "",
       lecturer: "",
-      student: [],
-      //   studentList: [],
+      studentList: [],
+      studentSelected: [],
       error: false,
       errorMessage: "",
       loading: false,
@@ -91,15 +90,15 @@ export default {
         .firestore()
         .collection("Groups")
         .add({
-          groupname: this.groupname,
+          groupName: this.groupName,
           lecturer: this.lecturer,
+          studentSelected: this.studentSelected,
         })
         .then(() => {
           this.loading = false;
           this.error = true;
-          this.errorMessage = `"you have added student to this ${this.groupname} "`;
-        }),
-        () => console.log(this.student);
+          this.errorMessage = `"you have added ${this.studentSelected} to this ${this.groupName} "`;
+        });
     },
 
     // remove button funkcija  -> reikia įsidėti
@@ -121,7 +120,7 @@ export default {
       .get()
       .then((snapshot) =>
         snapshot.docs.forEach((doc) =>
-          this.student.push({
+          this.studentList.push({
             id: doc.id,
             name: doc.data().name,
             surname: doc.data().surname,
@@ -161,10 +160,6 @@ input {
 
 input[type="number"] {
   -moz-appearance: textfield;
-}
-
-input[type="radio"] {
-  margin-right: 20px;
 }
 
 button {

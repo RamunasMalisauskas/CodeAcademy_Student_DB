@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       groupList: [],
-      studentList: [{ name: "Vardas", surname: "Pavarde" }],
+      studentList: [],
     };
   },
 
@@ -58,11 +58,20 @@ export default {
         )
       );
 
-    // firebase
-    //   .firestore()
-    //   .collection("studentList")
-    //   .get()
-    //   .then((doc) => console.log(doc.data()));
+    firebase
+      .firestore()
+      .collection("Groups")
+      .doc()
+      .collection("studentSelected")
+      .get()
+      .then((snapshot) =>
+        snapshot.docs.forEach((doc) =>
+          this.studentList.push({
+            id: doc.id,
+            name: doc.data().number,
+          })
+        )
+      );
   },
 };
 </script>
