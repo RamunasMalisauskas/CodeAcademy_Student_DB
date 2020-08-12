@@ -3,59 +3,44 @@
     <h2 class="title">Edit Student information</h2>
 
     <!-- <Search v-on:search="(query) => (filter = query)" /> -->
+    <form name="edit">
+      <table class="table is-striped ">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Gender</th>
+            <th>D.O.B.</th>
+            <th>Phone</th>
+            <th>E-mail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="student in students" :key="student.id">
+            <td>
+              <input type="text" v-model="student.name" />
+            </td>
+            <td>
+              <input type="text" v-model="student.surname" />
+            </td>
+            <td>
+              <input type="text" v-model="student.gender" />
+            </td>
+            <td>
+              <input type="text" v-model="student.birth" />
+            </td>
+            <td>
+              <input type="text" v-model="student.phone" />
+            </td>
+            <td>
+              <input type="text" v-model="student.email" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-    <table class="table is-striped ">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Gender</th>
-          <th>D.O.B.</th>
-          <th>Phone</th>
-          <th>E-mail</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="student in students" :key="student.id">
-          <td>
-            <input
-              type="text"
-              v-model="student.name"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              v-model="student.surname"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              v-model="student.gender"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              v-model="student.birth"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              v-model="student.phone"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              v-model="student.email"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <button type="submit">Edit</button>
+    </form>
   </div>
 </template>
 
@@ -72,7 +57,7 @@ export default {
     return {
       allstudents: [],
       students: [],
-      name: ""
+      name: "",
     };
   },
 
@@ -88,7 +73,7 @@ export default {
     firebase
       .firestore()
       .collection("Students")
-        // .doc(this.$route.params.id)
+      // .doc(this.$route.params.id)
       .get()
       .then((snapshot) =>
         snapshot.docs.forEach((doc) =>
@@ -124,5 +109,20 @@ input {
   border-radius: 10px;
   box-sizing: border-box;
   width: 100%;
+}
+
+button {
+  display: block;
+  padding: 10px 30px;
+  border: 0;
+  border-radius: 10px;
+  background-color: rgb(0, 183, 255);
+  color: rgb(255, 255, 255);
+}
+
+button:hover {
+  cursor: pointer;
+  color: rgb(0, 183, 255);
+  background-color: rgb(255, 255, 255);
 }
 </style>

@@ -43,8 +43,8 @@
                 :value="`${student.name} ${student.surname}`"
                 v-model="studentSelected"
               />
-              {{ `${student.name} ${student.surname}` }}
             </label>
+            {{ `${student.name} ${student.surname}` }}
           </li>
         </ul>
       </div>
@@ -56,7 +56,9 @@
         :message="errorMessage"
       />
 
-      <button type="submit" class="button">Add Group</button>
+      <button type="submit" class="button" :class="loading && 'is-loading'">
+        Add Group
+      </button>
     </form>
   </div>
 </template>
@@ -152,6 +154,10 @@ input {
   border-radius: 10px;
   box-sizing: border-box;
   width: 50%;
+}
+
+label > input {
+    width: 5%;
 }
 
 .control {

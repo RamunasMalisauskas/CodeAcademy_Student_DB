@@ -21,7 +21,7 @@
             <select>
               <option>Students in a class </option>
               <option v-for="student in studentList" :key="student.id">
-                {{ student.name }}
+                {{ student }}
               </option>
             </select>
           </div>
@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       groupList: [],
-      studentList: [{ name: "vardas pavarde" }],
+      studentList: [],
     };
   },
 
@@ -69,10 +69,10 @@ export default {
       .collection("studentSelected")
       .get()
       .then((snapshot) =>
-        snapshot.docs.forEach((doc) =>
+        snapshot.docs.forEach((document) =>
           this.studentList.push({
-            id: doc.id,
-            name: doc.data().number,
+            id: document.id,
+            student: document.data(),
           })
         )
       );
@@ -100,5 +100,4 @@ select:hover {
   color: rgb(0, 183, 255);
   background-color: rgb(255, 255, 255);
 }
-
 </style>
