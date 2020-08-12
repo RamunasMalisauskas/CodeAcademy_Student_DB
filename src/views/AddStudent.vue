@@ -91,7 +91,9 @@
         :message="errorMessage"
       />
 
-      <button type="submit" class="button">Add Student</button>
+      <button type="submit" class="button" :class="loading && 'is-loading'">
+        Add Student
+      </button>
     </form>
   </div>
 </template>

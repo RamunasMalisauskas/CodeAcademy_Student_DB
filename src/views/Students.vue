@@ -13,7 +13,7 @@
           <th>D.O.B.</th>
           <th>Phone</th>
           <th>E-mail</th>
-          <th>Edit</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

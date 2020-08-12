@@ -66,18 +66,24 @@
         </div>
       </div>
 
-      <button type="submit" class="button">Edit</button>
+      <button type="submit" class="button" :class="loading && 'is-loading'">
+        Edit</button
+      >\
+
+      <Notificaiton />
     </form>
   </div>
 </template>
 
 <script>
+import Notificaiton from "../components/Notification";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
 export default {
   name: "editStudent",
+  components: { Notificaiton },
   data() {
     return {
       id: "",
