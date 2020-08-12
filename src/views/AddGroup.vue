@@ -111,6 +111,23 @@ export default {
     //   this.workouts = this.workouts.filter((workout) => workout.id !== id);
     // },
   },
+
+  beforeMount() {
+    firebase
+      .firestore()
+      .collection("Students")
+      // .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then((snapshot) =>
+        snapshot.docs.forEach((doc) =>
+          this.studentList.push({
+            id: doc.id,
+            name: doc.data().name,
+            surname: doc.data().surname,
+          })
+        )
+      );
+  },
 };
 </script>
 
