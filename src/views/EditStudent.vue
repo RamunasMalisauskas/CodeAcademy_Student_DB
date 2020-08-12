@@ -67,7 +67,7 @@
       </div>
 
       <button type="submit" class="button" :class="loading && 'is-loading'">
-        Edit
+        Update
       </button>
 
       <Notification
@@ -122,7 +122,7 @@ export default {
         .then(() => {
           this.loading = false;
           this.error = true;
-          this.errorMessage = `you have updated ${this.name} information`;
+          this.errorMessage = `you have updated ${this.name + " " + this.surname}  information`;
         });
     },
   },
@@ -156,6 +156,7 @@ h2 {
 .blue {
   color: rgb(255, 255, 255);
   background-color: rgb(0, 183, 255);
+  border-radius: 10px;
 }
 
 table {
