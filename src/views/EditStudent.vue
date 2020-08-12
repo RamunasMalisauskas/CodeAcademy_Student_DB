@@ -3,68 +3,70 @@
     <h2 class="title">Edit Student information</h2>
 
     <form @submit.prevent="edit">
-      <div class="field">
-        <label class="label">Student Name</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="name"
-            v-model="name"
-            required
-          />
+      <div class="field-body">
+        <div class="field">
+          <label class="label">Student Name</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder="name"
+              v-model="name"
+              required
+            />
+          </div>
         </div>
-      </div>
-      <div class="field">
-        <label class="label">Surname</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="surname"
-            v-model="surname"
-            required
-          />
+        <div class="field">
+          <label class="label">Surname</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder="surname"
+              v-model="surname"
+              required
+            />
+          </div>
         </div>
-      </div>
-      <div class="field">
-        <label class="label">D.O.B.</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="birth"
-            v-model="birth"
-            required
-          />
+        <div class="field">
+          <label class="label">D.O.B.</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder="birth"
+              v-model="birth"
+              required
+            />
+          </div>
         </div>
-      </div>
-      <div class="field">
-        <label class="label">Phone</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="phone"
-            v-model="phone"
-            required
-          />
+        <div class="field">
+          <label class="label">Phone</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder="phone"
+              v-model="phone"
+              required
+            />
+          </div>
         </div>
-      </div>
-      <div class="field">
-        <label class="label">E-mail</label>
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="email"
-            v-model="email"
-            required
-          />
+        <div class="field">
+          <label class="label">E-mail</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder="email"
+              v-model="email"
+              required
+            />
+          </div>
         </div>
       </div>
 
-      <button type="submit">Edit</button>
+      <button type="submit" class="button">Edit</button>
     </form>
   </div>
 </template>
@@ -81,9 +83,13 @@ export default {
       id: "",
       name: "",
       surname: "",
+      gender: "",
       birth: "",
       phone: "",
       email: "",
+      error: false,
+      errorMessage: "",
+      loading: false,
     };
   },
 
@@ -91,7 +97,7 @@ export default {
     edit() {
       firebase
         .firestore()
-        .collection("student")
+        .collection("Students")
         .doc(this.id)
         .set({
           name: this.name,
@@ -111,19 +117,15 @@ export default {
       .collection("Students")
       .doc(this.$route.params.id)
       .get()
-      .then((snapshot) =>
-        snapshot.docs.forEach((doc) =>
-          this.students.push({
-            id: doc.id,
-            name: doc.data().name,
-            surname: doc.data().surname,
-            gender: doc.data().gender,
-            birth: doc.data().birth,
-            phone: doc.data().phone,
-            email: doc.data().email,
-          })
-        )
-      );
+      .then((doc) => {
+        (this.id = doc.id),
+          (this.name = doc.data().name),
+          (this.surname = doc.data().surname),
+          (this.gender = doc.data().gender),
+          (this.birth = doc.data().birth),
+          (this.phone = doc.data().phone),
+          (this.email = doc.data().email);
+      });
   },
 };
 </script>

@@ -24,7 +24,7 @@
           <td>{{ student.birth }}</td>
           <td>{{ student.phone }}</td>
           <td>{{ student.email }}</td>
-          <td><router-link :to="/edit/ + student.id">Edit</router-link></td>
+          <td><router-link :to="/editStudent/ + student.id">Edit</router-link></td>
         </tr>
       </tbody>
     </table>
