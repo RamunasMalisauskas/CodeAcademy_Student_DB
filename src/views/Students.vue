@@ -13,6 +13,7 @@
           <th>D.O.B.</th>
           <th>Phone</th>
           <th>E-mail</th>
+          <th>Edit</th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,7 @@
           <td>{{ student.birth }}</td>
           <td>{{ student.phone }}</td>
           <td>{{ student.email }}</td>
+          <td><router-link :to="/edit/ + student.id">Edit</router-link></td>
         </tr>
       </tbody>
     </table>
@@ -83,6 +85,6 @@ h2 {
 }
 
 table {
- margin-bottom: 180px;
+  margin-bottom: 180px;
 }
 </style>

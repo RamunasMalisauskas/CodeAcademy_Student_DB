@@ -2,42 +2,67 @@
   <div class="editStudent">
     <h2 class="title">Edit Student information</h2>
 
-    <!-- <Search v-on:search="(query) => (filter = query)" /> -->
-    <form name="edit">
-      <table class="table is-striped ">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Gender</th>
-            <th>D.O.B.</th>
-            <th>Phone</th>
-            <th>E-mail</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="student in students" :key="student.id">
-            <td>
-              <input type="text" v-model="student.name" />
-            </td>
-            <td>
-              <input type="text" v-model="student.surname" />
-            </td>
-            <td>
-              <input type="text" v-model="student.gender" />
-            </td>
-            <td>
-              <input type="text" v-model="student.birth" />
-            </td>
-            <td>
-              <input type="text" v-model="student.phone" />
-            </td>
-            <td>
-              <input type="text" v-model="student.email" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <form @submit.prevent="edit">
+      <div class="field">
+        <label class="label">Student Name</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="name"
+            v-model="name"
+            required
+          />
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Surname</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="surname"
+            v-model="surname"
+            required
+          />
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">D.O.B.</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="birth"
+            v-model="birth"
+            required
+          />
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Phone</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="phone"
+            v-model="phone"
+            required
+          />
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">E-mail</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="email"
+            v-model="email"
+            required
+          />
+        </div>
+      </div>
 
       <button type="submit">Edit</button>
     </form>
@@ -45,35 +70,46 @@
 </template>
 
 <script>
-// import Search from "../components/Search";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
 export default {
   name: "editStudent",
-  //   components: { Search },
   data() {
     return {
-      allstudents: [],
-      students: [],
+      id: "",
       name: "",
+      surname: "",
+      birth: "",
+      phone: "",
+      email: "",
     };
   },
 
-  //   computed: {
-  //     StudentSearch() {
-  //       return this.allstudents.filter((student) =>
-  //         student.name.toLowerCase().includes(this.filter.toLowerCase())
-  //       );
-  //     },
-  //   },
+  methods: {
+    edit() {
+      firebase
+        .firestore()
+        .collection("student")
+        .doc(this.id)
+        .set({
+          name: this.name,
+          surname: this.surname,
+          gender: this.gender,
+          birth: this.birth,
+          phone: this.phone,
+          email: this.email,
+        });
+    },
+  },
 
+  // paduoti i url su student id link
   beforeMount() {
     firebase
       .firestore()
       .collection("Students")
-      // .doc(this.$route.params.id)
+      .doc(this.$route.params.id)
       .get()
       .then((snapshot) =>
         snapshot.docs.forEach((doc) =>

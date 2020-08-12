@@ -40,7 +40,7 @@
             <label>
               <input
                 type="checkbox"
-                :value="`${student.name} ${student.surname}`"
+                :value="student.id"
                 v-model="studentSelected"
               />
             </label>
@@ -99,7 +99,7 @@ export default {
         .then(() => {
           this.loading = false;
           this.error = true;
-          this.errorMessage = `"you have added ${this.studentSelected} to this ${this.groupName} "`;
+          this.errorMessage = `"you have added students to this ${this.groupName} "`;
         });
     },
 

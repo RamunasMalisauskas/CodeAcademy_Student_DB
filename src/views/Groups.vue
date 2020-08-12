@@ -19,8 +19,12 @@
 
           <div class="select">
             <select>
+              <!-- atvaizuoja kiekį bet ne vardą -->
               <option>Students in a class </option>
-              <option v-for="student in studentList" :key="student.id">
+              <option
+                v-for="student in group.studentSelected"
+                :key="student.id"
+              >
                 {{ student }}
               </option>
             </select>
@@ -43,7 +47,8 @@ export default {
   data() {
     return {
       groupList: [],
-      studentList: [],
+      // sutvarkyti duomenū bazę kad paduotų studentID no ne string tada viskas veiks!!!
+      // studentList: [],
     };
   },
 
@@ -53,31 +58,62 @@ export default {
       .collection("Groups")
       .get()
       .then((snapshot) =>
-        snapshot.docs.forEach((doc) =>
-          this.groupList.push({
-            id: doc.id,
-            groupName: doc.data().groupName,
-            lecturer: doc.data().lecturer,
-          })
-        )
-      );
-
-    firebase
-      .firestore()
-      .collection("Groups")
-      .doc()
-      .collection("studentSelected")
-      .get()
-      .then((snapshot) =>
-        snapshot.docs.forEach((document) =>
-          this.studentList.push({
-            id: document.id,
-            student: document.data(),
-          })
-        )
+        snapshot.docs.forEach((doc) => {
+          let students = [];
+          doc.data().studentSelected.forEach((studentId, index) => {
+            firebase
+              .firestore()
+              .collection("Students")
+              .doc(studentId)
+              .get()
+              .then((student) => {
+                students.push(student.data().name);
+              })
+              .then(() => {
+                if (doc.data().studentSelected.length - 1 === index) {
+                  this.groupList.push({
+                    groupName: doc.data().groupName,
+                    lecturer: doc.data().lecturer,
+                    studentSelected: students,
+                  });
+                }
+              });
+          });
+        })
       );
   },
 };
+
+// beforeMount() {
+//   firebase
+//     .firestore()
+//     .collection("Groups")
+//     .get()
+//     .then((snapshot) =>
+//       snapshot.docs.forEach((doc) =>
+//         this.groupList.push({
+//           id: doc.id,
+//           groupName: doc.data().groupName,
+//           lecturer: doc.data().lecturer,
+//         })
+//       )
+//     );
+
+//   firebase
+//     .firestore()
+//     .collection("Groups")
+//     .doc()
+//     .collection("studentSelected")
+//     .get()
+//     .then((snapshot) =>
+//       snapshot.docs.forEach((document) =>
+//         this.studentList.push({
+//           id: document.id,
+//           student: document.data(),
+//         })
+//       )
+//     );
+// },
 </script>
 
 <style scoped>
@@ -91,13 +127,12 @@ table {
 }
 
 select {
-  border: 1px solid rgb(0, 183, 255);
   border-radius: 10px;
-  box-sizing: border-box;
 }
 
 select:hover {
-  color: rgb(0, 183, 255);
+  border: 1px solid rgb(0, 183, 255);
+  color: rgb(80, 80, 80);
   background-color: rgb(255, 255, 255);
 }
 </style>
