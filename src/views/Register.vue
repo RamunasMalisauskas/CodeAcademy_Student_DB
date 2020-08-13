@@ -85,6 +85,7 @@ label {
   color: rgb(80, 80, 80);
   display: block;
   min-width: 100%;
+  padding-bottom: 5px;
 }
 
 input {

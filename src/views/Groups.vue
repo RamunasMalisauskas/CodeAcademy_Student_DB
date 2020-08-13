@@ -8,7 +8,7 @@
       <thead>
         <tr>
           <th>Group Name</th>
-          <th>Lecturer</th>
+          <th>Tutor</th>
           <th>Student List</th>
           <th></th>
         </tr>
