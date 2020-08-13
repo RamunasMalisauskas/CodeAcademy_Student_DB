@@ -2,7 +2,7 @@
   <div class="groups">
     <h2 class="title">CodeAcademy Groups</h2>
 
-    <!-- <Search v-on:search="(query) => (filter = query)" /> -->
+    <Search v-on:search="(query) => (filter = query)" />
 
     <table class="table is-fullwidth is-striped ">
       <thead>
@@ -14,13 +14,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="group in groupList" :key="group.id">
+        <tr v-for="group in groupSearch" :key="group.id">
           <td>{{ group.groupName }}</td>
           <td>{{ group.lecturer }}</td>
 
           <div class="select">
             <select>
-              <!-- atvaizuoja kiekį bet ne vardą -->
               <option>Students in a class </option>
               <option
                 v-for="student in group.studentSelected"
@@ -40,20 +39,27 @@
 </template>
 
 <script>
-// import Search from "../components/Search";
+import Search from "../components/Search";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
 export default {
   name: "Home",
-  components: {},
+  components: { Search },
   data() {
     return {
       groupList: [],
-      // sutvarkyti duomenū bazę kad paduotų studentID no ne string tada viskas veiks!!!
-      // studentList: [],
+      filter: "",
     };
+  },
+
+  computed: {
+    groupSearch() {
+      return this.groupList.filter((group) =>
+        group.groupName.toLowerCase().includes(this.filter.toLowerCase())
+      );
+    },
   },
 
   beforeMount() {

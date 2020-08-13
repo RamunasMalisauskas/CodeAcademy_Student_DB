@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="student in students" :key="student.id">
+        <tr v-for="student in StudentSearch" :key="student.id">
           <td>{{ student.name }}</td>
           <td>{{ student.surname }}</td>
           <td>{{ student.gender }}</td>
@@ -44,14 +44,14 @@ export default {
   components: { Search },
   data() {
     return {
-      allstudents: [],
       students: [],
+      filter: "",
     };
   },
 
   computed: {
     StudentSearch() {
-      return this.allstudents.filter((student) =>
+      return this.students.filter((student) =>
         student.name.toLowerCase().includes(this.filter.toLowerCase())
       );
     },

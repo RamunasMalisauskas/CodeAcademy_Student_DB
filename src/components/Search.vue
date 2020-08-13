@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div class="field">
-      <label class="label">Search by student name.</label>
+      <label class="label">Search...</label>
       <div class="control">
         <input
           class="input"
