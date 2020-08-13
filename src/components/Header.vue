@@ -9,12 +9,8 @@
         <span v-if="loggedIn">
           <router-link to="/students">Students</router-link>
           <router-link to="/add">+Student </router-link>
-          <router-link to="/editStudent/:id"> </router-link>
-
           <router-link to="/groups">Groups </router-link>
           <router-link to="/addGroup">+Group </router-link>
-          <router-link to="/editGroup/:id"></router-link>
-
           <a class="blue" v-on:click="signOut()">Sign Out</a>
         </span>
 
