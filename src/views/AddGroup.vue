@@ -88,6 +88,7 @@ export default {
 
   methods: {
     addGroup() {
+      this.loading = true;
       firebase
         .firestore()
         .collection("Groups")
@@ -99,7 +100,7 @@ export default {
         .then(() => {
           this.loading = false;
           this.error = true;
-          this.errorMessage = `"you have added students to this ${this.groupName} "`;
+          this.errorMessage = `"you have added students to this ${this.groupName}  "`;
         });
     },
 
@@ -157,7 +158,7 @@ input {
 }
 
 label > input {
-    width: 5%;
+  width: 5%;
 }
 
 .control {

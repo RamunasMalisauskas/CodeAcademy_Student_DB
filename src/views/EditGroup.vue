@@ -88,12 +88,12 @@ export default {
 
   methods: {
     editGroup() {
-        
-          this.loading = true;
+      this.loading = true;
       firebase
         .firestore()
         .collection("Groups")
-        .add({
+        .doc(this.id)
+        .set({
           groupName: this.groupName,
           lecturer: this.lecturer,
           studentSelected: this.studentSelected,
@@ -110,17 +110,27 @@ export default {
     firebase
       .firestore()
       .collection("Students")
-      // .doc(firebase.auth().currentUser.uid)
       .get()
       .then((snapshot) =>
-        snapshot.docs.forEach((doc) =>
+        snapshot.docs.forEach((document) =>
           this.studentList.push({
-            id: doc.id,
-            name: doc.data().name,
-            surname: doc.data().surname,
+            id: document.id,
+            name: document.data().name,
+            surname: document.data().surname,
           })
         )
-      );
+      ),
+      firebase
+        .firestore()
+        .collection("Groups")
+        .doc(this.$route.params.id)
+        .get()
+        .then((groupDoc) => {
+          (this.id = groupDoc.id),
+            (this.groupName = groupDoc.data().groupName),
+            (this.lecturer = groupDoc.data().lecturer),
+            (this.studentSelected = groupDoc.data().studentSelected);
+        });
   },
 };
 </script>
@@ -149,7 +159,7 @@ input {
 }
 
 label > input {
-    width: 5%;
+  width: 5%;
 }
 
 .control {
