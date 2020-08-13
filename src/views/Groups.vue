@@ -10,6 +10,7 @@
           <th>Group Name</th>
           <th>Lecturer</th>
           <th>Student List</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -29,6 +30,9 @@
               </option>
             </select>
           </div>
+          <td>
+            <router-link :to="/editGroup/ + group.id">Edit</router-link>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -72,6 +76,7 @@ export default {
               .then(() => {
                 if (doc.data().studentSelected.length - 1 === index) {
                   this.groupList.push({
+                    id: doc.id,
                     groupName: doc.data().groupName,
                     lecturer: doc.data().lecturer,
                     studentSelected: students,
@@ -134,5 +139,17 @@ select:hover {
   border: 1px solid rgb(0, 183, 255);
   color: rgb(80, 80, 80);
   background-color: rgb(255, 255, 255);
+}
+a {
+  padding: 7.5px 20px;
+  border-radius: 10px;
+  border: 1px solid rgb(0, 183, 255);
+  color: rgb(0, 183, 255);
+  background-color: rgb(255, 255, 255);
+}
+
+a:hover {
+  background-color: rgb(0, 183, 255);
+  color: rgb(255, 255, 255);
 }
 </style>

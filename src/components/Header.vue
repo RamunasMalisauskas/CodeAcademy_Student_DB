@@ -8,11 +8,13 @@
       <nav>
         <span v-if="loggedIn">
           <router-link to="/students">Students</router-link>
-          <router-link to="/add">Add Student </router-link>
-          <router-link to="/editStudent/:id">Edit Student </router-link>
-          <router-link to="/editGroup/:id">Edit Group </router-link>
-          <router-link to="/addGroup">Add Group </router-link>
+          <router-link to="/add">+Student </router-link>
+          <router-link to="/editStudent/:id">~Student </router-link>
+
           <router-link to="/groups">Groups </router-link>
+          <router-link to="/addGroup">+Group </router-link>
+          <router-link to="/editGroup/:id">~Group </router-link>
+
           <a class="blue" v-on:click="signOut()">Sign Out</a>
         </span>
 

@@ -125,6 +125,8 @@ export default {
 
   methods: {
     add() {
+      
+          this.loading = true;
       firebase
         .firestore()
         .collection("Students")

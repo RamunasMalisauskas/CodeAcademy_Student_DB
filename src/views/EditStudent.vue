@@ -107,6 +107,7 @@ export default {
 
   methods: {
     edit() {
+      this.loading = true;
       firebase
         .firestore()
         .collection("Students")
@@ -122,7 +123,9 @@ export default {
         .then(() => {
           this.loading = false;
           this.error = true;
-          this.errorMessage = `you have updated ${this.name + " " + this.surname}  information`;
+          this.errorMessage = `you have updated ${this.name +
+            " " +
+            this.surname}  information`;
         });
     },
   },
