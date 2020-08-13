@@ -126,6 +126,11 @@ export default {
           this.errorMessage = `you have updated ${this.name +
             " " +
             this.surname}  information`;
+        })
+        .catch((error) => {
+          this.loading = false;
+          this.error = true;
+          this.errorMessage = error.message;
         });
     },
   },

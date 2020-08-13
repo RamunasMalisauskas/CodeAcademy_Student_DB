@@ -3,6 +3,9 @@ node_modules
 /dist
 
 
+# Config files
+/scr/servises/
+
 # local env files
 .env.local
 .env.*.local

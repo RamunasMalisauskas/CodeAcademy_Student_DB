@@ -141,6 +141,11 @@ export default {
           this.loading = false;
           this.error = true;
           this.errorMessage = `"you have added ${this.name} ${this.surname} to student database "`;
+        })
+        .catch((error) => {
+          this.loading = false;
+          this.error = true;
+          this.errorMessage = error.message;
         });
     },
 

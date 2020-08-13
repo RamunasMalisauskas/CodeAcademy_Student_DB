@@ -24,7 +24,7 @@ const routes = [
     path: "/add",
     name: "Add",
     component: () =>
-      import(/* webpackChunkName: "Add" */ "../views/AddStudent.vue"),
+      import(/* webpackChunkName: "add" */ "../views/AddStudent.vue"),
     meta: {
       requiresAuth: true,
     },
@@ -33,7 +33,7 @@ const routes = [
     path: "/editStudent/:id",
     name: "Edit Student",
     component: () =>
-      import(/* webpackChunkName: "Edit Student" */ "../views/EditStudent.vue"),
+      import(/* webpackChunkName: "edit student" */ "../views/EditStudent.vue"),
     meta: {
       requiresAuth: true,
     },
@@ -42,7 +42,7 @@ const routes = [
     path: "/editGroup/:id",
     name: "Edit Group",
     component: () =>
-      import(/* webpackChunkName: "Edit Group" */ "../views/EditGroup.vue"),
+      import(/* webpackChunkName: "edit group" */ "../views/EditGroup.vue"),
     meta: {
       requiresAuth: true,
     },
@@ -51,16 +51,16 @@ const routes = [
     path: "/addGroup",
     name: "Add Group",
     component: () =>
-      import(/* webpackChunkName: "Add Group" */ "../views/AddGroup.vue"),
+      import(/* webpackChunkName: "add group" */ "../views/AddGroup.vue"),
     meta: {
       requiresAuth: true,
     },
   },
   {
-    path: "/Groups",
+    path: "/groups",
     name: "Groups",
     component: () =>
-      import(/* webpackChunkName: "Add" */ "../views/Groups.vue"),
+      import(/* webpackChunkName: "add" */ "../views/Groups.vue"),
     meta: {
       requiresAuth: true,
     },

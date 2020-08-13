@@ -101,6 +101,11 @@ export default {
           this.loading = false;
           this.error = true;
           this.errorMessage = `"you have added students to this ${this.groupName}  "`;
+        })
+        .catch((error) => {
+          this.loading = false;
+          this.error = true;
+          this.errorMessage = error.message;
         });
     },
 
