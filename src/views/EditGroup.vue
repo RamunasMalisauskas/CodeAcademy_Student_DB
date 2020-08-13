@@ -92,7 +92,7 @@ export default {
       firebase
         .firestore()
         .collection("Groups")
-        .doc(this.id)
+        .doc(this.$route.params.id)
         .set({
           groupName: this.groupName,
           lecturer: this.lecturer,

@@ -111,7 +111,7 @@ export default {
       firebase
         .firestore()
         .collection("Students")
-        .doc(this.id)
+        .doc(this.$route.params.id)
         .set({
           name: this.name,
           surname: this.surname,
@@ -159,7 +159,6 @@ h2 {
 .blue {
   color: rgb(255, 255, 255);
   background-color: rgb(0, 183, 255);
-  border-radius: 10px;
 }
 
 table {

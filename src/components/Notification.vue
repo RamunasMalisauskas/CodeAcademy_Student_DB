@@ -23,5 +23,6 @@ export default {
 <style scoped>
 .notification {
   margin: 30px 0;
+  border-radius: 10px;
 }
 </style>
