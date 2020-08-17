@@ -18,17 +18,31 @@
           <td>{{ group.groupName }}</td>
           <td>{{ group.lecturer }}</td>
 
-          <div class="select">
-            <select>
-              <option>Students in a class </option>
-              <option
-                v-for="student in group.studentSelected"
-                :key="student.id"
+          <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger">
+              <button
+                class="button"
+                aria-haspopup="true"
+                aria-controls="dropdown-menu2"
               >
-                {{ student }}
-              </option>
-            </select>
+                <span>Students in the class</span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu2" role="menu">
+              <div class="dropdown-content">
+                <div class="dropdown-item">
+                  <div
+                    class="dropdown-item"
+                    v-for="student in group.studentSelected"
+                    :key="student.id"
+                  >
+                    {{ student }}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
           <td>
             <router-link :to="/editGroup/ + group.id">Edit</router-link>
           </td>
@@ -157,5 +171,20 @@ a {
 a:hover {
   background-color: rgb(0, 183, 255);
   color: rgb(255, 255, 255);
+}
+
+button {
+  padding: 7.5px 20px;
+  border-radius: 10px;
+  border: 1px solid rgb(80, 80, 80);
+  color: rgb(80, 80, 80);
+  background-color: rgb(255, 255, 255);
+}
+
+button:hover {
+  cursor: pointer;
+  color: rgb(0, 183, 255);
+  background-color: inherit;
+  border: 0px;
 }
 </style>
