@@ -1,20 +1,23 @@
 <template>
-  <div class="classes">
-    <h2 class="title">Classes</h2>
+  <div class="students">
+    <h2 class="title">Student list</h2>
 
     <Search v-on:search="(query) => (filter = query)" />
 
     <table class="table is-fullwidth is-striped ">
       <thead>
         <tr>
-          <th>Dates</th>
-          <th>Groups</th>
-          <th>Tutor</th>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Gender</th>
+          <th>D.O.B.</th>
+          <th>Phone</th>
+          <th>E-mail</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="singleClass in classes" :key="singleClass.id">
+        <tr v-for="student in StudentSearch" :key="student.id">
           <td>{{ student.name }}</td>
           <td>{{ student.surname }}</td>
           <td>{{ student.gender }}</td>
@@ -31,17 +34,17 @@
 </template>
 
 <script>
-import Search from "../components/Search";
+import Search from "../../components/Search";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
 export default {
-  name: "Classes",
+  name: "Home",
   components: { Search },
   data() {
     return {
-      classes: [],
+      students: [],
       filter: "",
     };
   },
@@ -57,16 +60,19 @@ export default {
   beforeMount() {
     firebase
       .firestore()
-      .collection("classes")
+      .collection("Students")
       // .doc(firebase.auth().currentUser.uid)
       .get()
       .then((snapshot) =>
         snapshot.docs.forEach((doc) =>
           this.students.push({
             id: doc.id,
-            date: doc.data().date,
-            class: doc.data().class,
-            lecturer: doc.data().lecturer,
+            name: doc.data().name,
+            surname: doc.data().surname,
+            gender: doc.data().gender,
+            birth: doc.data().birth,
+            phone: doc.data().phone,
+            email: doc.data().email,
           })
         )
       );

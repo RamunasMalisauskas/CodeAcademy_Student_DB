@@ -1,8 +1,8 @@
 <template>
-  <div class="register">
-    <h2 class="title">Register</h2>
+  <div class="login">
+    <h2 class="title">Login</h2>
 
-    <form name="iki" v-on:submit.prevent="register">
+    <form name="iki" v-on:submit.prevent="login">
       <label for="email">Email</label>
       <input
         type="email"
@@ -40,10 +40,10 @@
 <script>
 import firebase from "firebase/app";
 import "firebase/auth";
-import Notification from "../components/Notification";
+import Notification from "../../components/Notification";
 
 export default {
-  name: "Register",
+  name: "Login",
   components: { Notification },
   data() {
     return {
@@ -56,18 +56,19 @@ export default {
   },
 
   methods: {
-    register() {
+    login() {
       this.loading = true;
       firebase
         .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
+        .signInWithEmailAndPassword(this.email, this.password)
         .then(
-          () => this.$router.push("/"),
+          () => this.$router.push("/students"),
 
-          (error) => {
+          () => {
             this.loading = false;
             this.error = true;
-            this.errorMessage = error.message;
+            this.errorMessage =
+              "oops... something went wrong, check you email and password";
           }
         );
     },

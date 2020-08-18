@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import Notification from "../components/Notification";
+import Notification from "../../components/Notification";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";

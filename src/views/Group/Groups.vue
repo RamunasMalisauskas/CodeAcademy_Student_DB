@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import Search from "../components/Search";
+import Search from "../../components/Search";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";

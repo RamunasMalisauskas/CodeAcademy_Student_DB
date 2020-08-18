@@ -1,8 +1,8 @@
 <template>
-  <div class="add">
-    <h2 class="title">Add Group</h2>
+  <div class="EditGroup">
+    <h2 class="title">Edit Group</h2>
 
-    <form @submit.prevent="addGroup">
+    <form @submit.prevent="editGroup">
       <div class="field">
         <label class="label">Group Name</label>
         <div class="control">
@@ -57,20 +57,20 @@
       />
 
       <button type="submit" class="button" :class="loading && 'is-loading'">
-        Add Group
+        Update Group
       </button>
     </form>
   </div>
 </template>
 
 <script>
-import Notification from "../components/Notification";
+import Notification from "../../components/Notification";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
 export default {
-  name: "addGroup",
+  name: "editGroup",
 
   components: { Notification },
 
@@ -87,12 +87,13 @@ export default {
   },
 
   methods: {
-    addGroup() {
+    editGroup() {
       this.loading = true;
       firebase
         .firestore()
         .collection("Groups")
-        .add({
+        .doc(this.$route.params.id)
+        .set({
           groupName: this.groupName,
           lecturer: this.lecturer,
           studentSelected: this.studentSelected,
@@ -100,7 +101,7 @@ export default {
         .then(() => {
           this.loading = false;
           this.error = true;
-          this.errorMessage = `"you have added students to this ${this.groupName}  "`;
+          this.errorMessage = `"you have added students to this ${this.groupName} "`;
         })
         .catch((error) => {
           this.loading = false;
@@ -108,33 +109,33 @@ export default {
           this.errorMessage = error.message;
         });
     },
-
-    // remove button funkcija  -> reikia įsidėti
-    // remove(id) {
-    //   firebase
-    //     .firestore()
-    //     .collection("Students")
-    //     .doc(id)
-    //     .delete();
-    //   this.workouts = this.workouts.filter((workout) => workout.id !== id);
-    // },
   },
 
   beforeMount() {
     firebase
       .firestore()
       .collection("Students")
-      // .doc(firebase.auth().currentUser.uid)
       .get()
       .then((snapshot) =>
-        snapshot.docs.forEach((doc) =>
+        snapshot.docs.forEach((document) =>
           this.studentList.push({
-            id: doc.id,
-            name: doc.data().name,
-            surname: doc.data().surname,
+            id: document.id,
+            name: document.data().name,
+            surname: document.data().surname,
           })
         )
-      );
+      ),
+      firebase
+        .firestore()
+        .collection("Groups")
+        .doc(this.$route.params.id)
+        .get()
+        .then((groupDoc) => {
+          (this.id = groupDoc.id),
+            (this.groupName = groupDoc.data().groupName),
+            (this.lecturer = groupDoc.data().lecturer),
+            (this.studentSelected = groupDoc.data().studentSelected);
+        });
   },
 };
 </script>
